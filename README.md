@@ -91,6 +91,6 @@ As noted in our [security policy](https://github.com/newrelic/nr-labs-pages/secu
 
 If you believe you have found a security vulnerability in this project or any of New Relic's products or websites, we welcome and greatly appreciate you reporting it to New Relic through [HackerOne](https://hackerone.com/newrelic).
 
-## Open Source License
+## License
 
 This project is distributed under the [New Relic Software License](LICENSE).
