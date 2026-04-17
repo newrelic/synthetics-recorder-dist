@@ -2,7 +2,7 @@
 
 ### Is my API key stored locally to disk?
 
-No, the User API key is stored only in browser session storage only. It is cleared upon closing the browser.
+No, the User API key is stored in browser session storage only. It is cleared upon closing the browser.
 
 ### Will the extension record all browser activity?
 
@@ -10,7 +10,7 @@ Yes, but the extension only records while record mode is active (which requires 
 
 ### Will my recorded steps be saved or exported anywhere automatically?
 
-No, recorded steps are stored temporarily in browser session storage, and only exported via clicking `Save` or `Update` for a given monitor in the `Export` panel.
+No, recorded steps are stored temporarily in browser session storage, and only exported via clicking `Save` or `Update` for a given monitor in the `Export` panel. They are cleared when closing the extension or the browser.
 
 ### Why can I only edit certain scripted monitors imported?
 
