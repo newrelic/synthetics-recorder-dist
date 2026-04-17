@@ -57,7 +57,7 @@ A Chrome extension for recording browser interactions and creating associated Ne
 3. Use the search box to narrow the list by name, or page forward to load more results when available
 3. Select a monitor to navigate to the monitor page in New Relic or select `Edit` to load and edit that monitor's steps or configuration.
 
-Scripted Browser imports are limited to recorder-generated monitors that include the extension's `createdby: nr-synthetics-recorder` tag and embedded recorder metadata. This keeps scripted imports deterministic and editable in the extension.
+> Scripted Browser imports are limited to recorder-generated monitors that include the extension's `createdby: nr-synthetics-recorder` tag and embedded recorder metadata. This keeps scripted imports deterministic and editable in the extension.
 
 ### Updating a Monitor's Steps/Config
 
@@ -74,6 +74,10 @@ To exit edit mode, select `Cancel` on the edit panel at the top of the `Export` 
 - Scrolls are captured after a 2 second wait (to ensure all scrolling is complete).
 - A single recording mode lasts a maximum of 5 minutes after recording is started.
 - Recording in Chrome's Incognito mode is recommended, to more closely mirror Synthetics behavior of executing monitors in browser with no cache.
+
+## FAQ
+
+See [FAQ](./FAQ.md) for other common questions
 
 ## Support
 
