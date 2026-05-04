@@ -1,5 +1,3 @@
-<a href="https://opensource.newrelic.com/oss-category/#community-plus"><picture><source media="(prefers-color-scheme: dark)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/dark/Community_Plus.png"><source media="(prefers-color-scheme: light)" srcset="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Plus.png"><img alt="New Relic Open Source community plus project banner." src="https://github.com/newrelic/opensource-website/raw/main/src/images/categories/Community_Plus.png"></picture></a>
-
 # New Relic Synthetics Recorder
 
 A Chrome extension for recording browser interactions and creating associated New Relic Synthetics Step Monitors.
@@ -9,9 +7,11 @@ A Chrome extension for recording browser interactions and creating associated Ne
 - **Record Interactions**: Capture clicks, form inputs, navigation, and more
 - **Assertion Mode**: Add validation steps to verify page content
 - **Live Preview**: See recorded steps in real-time as you interact
-- **Export to New Relic**: Create Step Monitors directly via NerdGraph API
+- **Monitor Type Selection**: Record as either a Step Monitor or a Scripted Browser monitor
+- **Export to New Relic**: Create Step Monitor or Scripted Browser monitors directly via NerdGraph API
 - **Edit Steps & Configuration**: Modify, reorder, or delete recorded steps, or modify monitor configuration.
-- **Import Monitors**: Fetch existing Step Monitors for editing
+- **Add Steps**: Manually add steps without re-recording from the start.
+- **Import Monitors**: Fetch existing monitors across accessible accounts for editing, with monitor-type filtering in the Import tab
 - **Replay**: Replay steps to validate or troubleshoot steps 
 
 ## Installation
@@ -29,30 +29,34 @@ A Chrome extension for recording browser interactions and creating associated Ne
 ### Recording a Monitor
 
 1. Click the extension icon in Chrome toolbar
-2. Enter the URL you want to record and click "Start Recording"
-3. Interact with the website - your actions are captured automatically
-4. Click `Stop Recording` when finished
+2. Enter the URL you want to record, choose `Step Monitor` or `Scripted Browser`, and click "Start Recording"
+3. Interact with the website - your actions are captured automatically for up to 5 minutes per recording session
+4. Click `Stop` when finished
+
+> Recording sessions automatically stop after 5 minutes from the moment recording starts, even if the session is paused. When that happens, the Record tab will display a timeout message.
 
 ### Adding Assertions
 
 1. While recording, click `Add Assertion` in the Side Panel
 2. Click on any element to create a text assertion
 3. Choose assertion type (text present, element visible, etc.)
-4. Disable assertion mode in the extension to revert back to recording mode
+4. Disable assertion mode in the extension to revert back to recording mode (or press `ESC`)
 
 ### Exporting to New Relic
 
-1. Go to Settings tab and enter your New Relic [User key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/) and [Account ID](https://docs.newrelic.com/docs/accounts/accounts-billing/account-structure/account-id/)
+1. Go to Settings tab and enter your New Relic [User key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/)
 2. Navigate to Export tab
-3. Configure monitor name, frequency, browsers, device, locations, etc
+3. Review the selected monitor type, then choose the destination account and configure monitor name, frequency, browsers, device, locations, etc
 4. Click `Save to New Relic` when finished and then scroll back to the top to view a link to the created monitor.
-
 
 ### Importing from New Relic
 
-1. Go to Settings tab and enter your New Relic [User key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/) and [Account ID](https://docs.newrelic.com/docs/accounts/accounts-billing/account-structure/account-id/)
-2. Navigate to Import tab (monitors will automatically be fetched)
-3. Select a monitor to navigate to the monitor page in New Relic or select `Edit` to load and edit that monitor's steps or configuration.
+1. Go to Settings tab and enter your New Relic [User key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/)
+2. Navigate to Import tab, choose the monitor type you want to fetch, and wait for the first page of monitors across accessible accounts to load.
+3. Use the search box to narrow the list by name, or page forward to load more results when available
+4. Select a monitor to navigate to the monitor page in New Relic or select `Edit` to load and edit that monitor's steps or configuration.
+
+> Scripted Browser imports are limited to recorder-generated monitors that include the extension's `createdby: nr-synthetics-recorder` tag and embedded recorder metadata. This keeps scripted imports deterministic and editable in the extension.
 
 ### Updating a Monitor's Steps/Config
 
@@ -60,11 +64,46 @@ After exporting a monitor to New Relic, the extension will switch to Edit mode, 
 
 To exit edit mode, select `Cancel` on the edit panel at the top of the `Export` tab.
 
+## Available Steps
+
+The recorder supports the following step types. Unless noted otherwise, a step is available in both Step Monitor and Scripted Browser monitors.
+
+| Step Name | Brief Description | Monitor Type Availability |
+|-----------|-------------------|---------------------------|
+| Navigate | Open a URL in the active browser tab. | Both |
+| Click Element | Click the element that matches the selector. | Both |
+| Double Click Element | Double-click the element that matches the selector. | Both |
+| Enter Text | Clear a field and type a plain-text value. | Both |
+| Enter Secure Text | Clear a field and type a secure credential reference or placeholder. | Both |
+| Select Option | Select or set an option value on a form control. | Both |
+| Hover Element | Move the pointer over the matched element. | Both |
+| Assert Element Exists | Verify that an element can be located on the page. | Both |
+| Assert Text | Compare an element's text against an expected value with an operator. | Both |
+| Assert Page Title | Compare the page title against an expected value with an operator. | Both |
+| Assert Modal | Verify that a browser alert/modal is present. | Both |
+| Dismiss Modal | Accept the active browser alert/modal. | Both |
+| Scroll Page | Scroll the page to specific X/Y coordinates. | Scripted Browser only |
+| Scroll To Element | Scroll until the matched element is in view. | Scripted Browser only |
+| Switch To iFrame | Switch execution into a matched iframe. | Scripted Browser only |
+| Wait | Pause execution for a specific duration in milliseconds. | Scripted Browser only |
+| Switch To Tab | Switch execution to another browser tab by index. | Scripted Browser only |
+| Refresh Page | Reload the current page. | Scripted Browser only |
+| Go Back | Navigate back in browser history. | Scripted Browser only |
+| Go Forward | Navigate forward in browser history. | Scripted Browser only |
+
 ## Additional Notes & Tips
 
 - It is recommended to assert elements/text after any clicks or interactions that trigger additional page loads or DOM changes. This adds a layer of validation to ensure elements that will be interacted with are loaded/available before interacting directly with them.
+- Your New Relic API key is kept only for the current browser session. Using `Clear` in the Settings tab removes it immediately from both the side panel state and the active background session.
 - Password fields are determined by any HTML `<input>` element that has a `type="password"` attribute. When recorded steps match those elements, `{{SECURE_CREDENTIAL}}` is stored as the placeholder (instead of the input password text). Therefore, prior to exporting, it is expected that this placeholder is replaced by an existing [New Relic secure credential](https://docs.newrelic.com/docs/synthetics/synthetic-monitoring/using-monitors/store-secure-credentials-scripted-browsers-api-tests/) that holds the value within New Relic (i.e: `$secure.PASSWORD`).
-- Element hovers are captured by hovering over a desired element for 2 seconds
+- Element hovers are captured by hovering over a desired element for 2 seconds.
+- Scrolls are captured after a 2 second wait (to ensure all scrolling is complete).
+- A single recording mode lasts a maximum of 5 minutes after recording is started.
+- Recording in Chrome's Incognito mode is recommended, to more closely mirror Synthetics behavior of executing monitors in browser with no cache.
+
+## FAQ
+
+See [FAQ](./FAQ.md) for other common questions
 
 ## Support
 
@@ -82,6 +121,6 @@ As noted in our [security policy](https://github.com/newrelic/nr-labs-pages/secu
 
 If you believe you have found a security vulnerability in this project or any of New Relic's products or websites, we welcome and greatly appreciate you reporting it to New Relic through [HackerOne](https://hackerone.com/newrelic).
 
-## Open Source License
+## License
 
 This project is distributed under the [New Relic Software License](LICENSE).
