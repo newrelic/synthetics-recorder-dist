@@ -31,7 +31,7 @@ A Chrome extension for recording browser interactions and creating associated Ne
 1. Click the extension icon in Chrome toolbar
 2. Enter the URL you want to record, choose `Step Monitor` or `Scripted Browser`, and click "Start Recording"
 3. Interact with the website - your actions are captured automatically for up to 5 minutes per recording session
-4. Click `Stop Recording` when finished
+4. Click `Stop` when finished
 
 > Recording sessions automatically stop after 5 minutes from the moment recording starts, even if the session is paused. When that happens, the Record tab will display a timeout message.
 
@@ -49,13 +49,12 @@ A Chrome extension for recording browser interactions and creating associated Ne
 3. Review the selected monitor type, then choose the destination account and configure monitor name, frequency, browsers, device, locations, etc
 4. Click `Save to New Relic` when finished and then scroll back to the top to view a link to the created monitor.
 
-
 ### Importing from New Relic
 
 1. Go to Settings tab and enter your New Relic [User key](https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/)
-2. Navigate to Import tab, choose the monitor type you want to browse, and wait for the first page of monitors across accessible accounts to load automatically
+2. Navigate to Import tab, choose the monitor type you want to fetch, and wait for the first page of monitors across accessible accounts to load.
 3. Use the search box to narrow the list by name, or page forward to load more results when available
-3. Select a monitor to navigate to the monitor page in New Relic or select `Edit` to load and edit that monitor's steps or configuration.
+4. Select a monitor to navigate to the monitor page in New Relic or select `Edit` to load and edit that monitor's steps or configuration.
 
 > Scripted Browser imports are limited to recorder-generated monitors that include the extension's `createdby: nr-synthetics-recorder` tag and embedded recorder metadata. This keeps scripted imports deterministic and editable in the extension.
 
@@ -64,6 +63,33 @@ A Chrome extension for recording browser interactions and creating associated Ne
 After exporting a monitor to New Relic, the extension will switch to Edit mode, where you can modify steps or monitor configuration. Alternatively, clicking edit on any imported monitor via `Import` tab will load the monitor's current steps/config. Edit any desired steps/configuration settings, and then click `Update monitor` on the `Export` tab. 
 
 To exit edit mode, select `Cancel` on the edit panel at the top of the `Export` tab.
+
+## Available Steps
+
+The recorder supports the following step types. Unless noted otherwise, a step is available in both Step Monitor and Scripted Browser monitors.
+
+| Step Name | Brief Description | Monitor Type Availability |
+|-----------|-------------------|---------------------------|
+| Navigate | Open a URL in the active browser tab. | Both |
+| Click Element | Click the element that matches the selector. | Both |
+| Double Click Element | Double-click the element that matches the selector. | Both |
+| Enter Text | Clear a field and type a plain-text value. | Both |
+| Enter Secure Text | Clear a field and type a secure credential reference or placeholder. | Both |
+| Select Option | Select or set an option value on a form control. | Both |
+| Hover Element | Move the pointer over the matched element. | Both |
+| Assert Element Exists | Verify that an element can be located on the page. | Both |
+| Assert Text | Compare an element's text against an expected value with an operator. | Both |
+| Assert Page Title | Compare the page title against an expected value with an operator. | Both |
+| Assert Modal | Verify that a browser alert/modal is present. | Both |
+| Dismiss Modal | Accept the active browser alert/modal. | Both |
+| Scroll Page | Scroll the page to specific X/Y coordinates. | Scripted Browser only |
+| Scroll To Element | Scroll until the matched element is in view. | Scripted Browser only |
+| Switch To iFrame | Switch execution into a matched iframe. | Scripted Browser only |
+| Wait | Pause execution for a specific duration in milliseconds. | Scripted Browser only |
+| Switch To Tab | Switch execution to another browser tab by index. | Scripted Browser only |
+| Refresh Page | Reload the current page. | Scripted Browser only |
+| Go Back | Navigate back in browser history. | Scripted Browser only |
+| Go Forward | Navigate forward in browser history. | Scripted Browser only |
 
 ## Additional Notes & Tips
 
