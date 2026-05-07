@@ -1,8 +1,8 @@
 # Frequently Asked Questions
 
-### Does the extension use browser local storage?
+### Does the extension use browser local storage for storing sensitive data?
 
-No, the extension only uses browser session storage, which is cleared when closing the browser.
+No, the extension only uses browser session storage for api keys and recording state (steps, etc) which is cleared when closing the browser. The only data stored in local storage are the user's region (US or EU) and debug mode toggle (enabled/disabled).
 
 ### Will the extension record all browser activity?
 
