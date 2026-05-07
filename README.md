@@ -14,7 +14,12 @@ A Chrome extension for recording browser interactions and creating associated Ne
 - **Import Monitors**: Fetch existing monitors across accessible accounts for editing, with monitor-type filtering in the Import tab
 - **Replay**: Replay steps to validate or troubleshoot steps 
 
-## Installation
+## Chrome Web Store Installation
+
+1. [Go to Chrome Web Store Page](https://chromewebstore.google.com/detail/new-relic-synthetics-reco/filagdpdlklgffpfofhegmoidjpllcnp?authuser=0&hl=en)
+2. Select `Add to Chrome`
+
+## Dev Installation
 
 1. Download the latest [release](https://github.com/newrelic/synthetics-recorder-dist/releases)
 2. Unzip the extension
