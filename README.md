@@ -10,7 +10,7 @@ A Chrome extension for recording browser interactions and creating associated Ne
 - **Monitor Type Selection**: Record as either a Step Monitor or a Scripted Browser monitor
 - **Export to New Relic**: Create Step Monitor or Scripted Browser monitors directly via NerdGraph API
 - **Edit Steps & Configuration**: Modify, reorder, or delete recorded steps, or modify monitor configuration.
-- **Add Steps**: Manually add steps without re-recording from the start.
+- **Add Steps**: Manually add steps, or re-record after pre-existing steps.
 - **Import Monitors**: Fetch existing monitors across accessible accounts for editing, with monitor-type filtering in the Import tab
 - **Replay**: Replay steps to validate or troubleshoot steps 
 
@@ -68,6 +68,13 @@ A Chrome extension for recording browser interactions and creating associated Ne
 After exporting a monitor to New Relic, the extension will switch to Edit mode, where you can modify steps or monitor configuration. Alternatively, clicking edit on any imported monitor via `Import` tab will load the monitor's current steps/config. Edit any desired steps/configuration settings, and then click `Update monitor` on the `Export` tab. 
 
 To exit edit mode, select `Cancel` on the edit panel at the top of the `Export` tab.
+
+### Adding Additional Steps
+
+After initial recording, there are several ways to add more steps:
+
+- Select `Add Step` at the bottom of the Steps tab - This allows you to add a single step manually.
+- In any existing step, select the `Record After` button - This replays all steps up until the step selected, and then switches to `Record` mode automatically to re-record steps, preserving all steps up until the one selected to record after.
 
 ## Available Steps
 
